@@ -15,6 +15,7 @@ import {
 } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { GetUsersParamDto } from './dtos/get-users-param.dto';
+import { PatchUserDto } from './dtos/patch-user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -24,8 +25,6 @@ export class UsersController {
     @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number,
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
   ) {
-    console.log(typeof id);
-    console.log(id);
     return 'You sent a get request to users endpoint';
   }
 
@@ -34,5 +33,10 @@ export class UsersController {
     console.log(createUserDto);
 
     return 'You sent a post request to users endpoint';
+  }
+
+  @Patch()
+  public patchUser(@Body() patchUserDto: PatchUserDto) {
+    return patchUserDto;
   }
 }
