@@ -9,9 +9,12 @@ import {
   IsUrl,
   Matches,
   MinLength,
+  ValidateNested,
 } from 'class-validator';
 import { postStatus } from '../enums/postStatus.enum';
 import { postType } from '../enums/postType.enum';
+import { CreatePostMetaOptinsDto } from './create-post-meta-options.dto';
+import { Type } from 'class-transformer';
 
 export class CreatePostDto {
   @IsString()
@@ -56,5 +59,10 @@ export class CreatePostDto {
   @IsString({ each: true })
   @MinLength(3, { each: true })
   tags?: string[];
-  metaOptions: [{ key: 'sidebarEnabled'; value: true }];
+
+  @IsOptional()
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => CreatePostMetaOptinsDto)
+  metaOptions: CreatePostMetaOptinsDto[];
 }
