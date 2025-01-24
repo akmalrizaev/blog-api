@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { PostsService } from './providers/posts.service';
 import { ApiTags } from '@nestjs/swagger';
 import { CreatePostDto } from './dtos/create-post.dto';
@@ -20,5 +20,7 @@ export class PostsController {
   }
 
   @Post()
-  public createPost(@Body() createPostDto: CreatePostDto) {}
+  public createPost(@Body() createPostDto: CreatePostDto) {
+    console.log(createPostDto);
+  }
 }
